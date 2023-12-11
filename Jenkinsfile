@@ -51,7 +51,7 @@ pipeline {
             steps {
 
                 sh'''
-                echo "TBC"
+                docker system prune -f
                 '''
 
             }
