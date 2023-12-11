@@ -25,8 +25,21 @@ pipeline {
             steps {
 
                 sh'''
-                docker build -t flask-jenk .
-                docker build -t nginx-jenk ./nginx
+                docker build -t s90hef/flask-jenk .
+                docker build -t s90hef/nginx-jenk ./nginx
+                '''
+
+            }
+
+        }
+
+        stage('Push') {
+
+            steps {
+
+                sh'''
+                docker push s90hef/flask-jenk
+                docker push s90hef/nginx-jenk
                 '''
 
             }
@@ -38,8 +51,8 @@ pipeline {
             steps {
 
                 sh'''
-                docker run -d --name flask-app --network jenk-network flask-jenk
-                docker run -d -p 80:80 --name nginx --network jenk-network nginx-jenk
+                docker run -d --name flask-app --network jenk-network s90hef/flask-jenk
+                docker run -d -p 80:80 --name nginx --network jenk-network s90hef/nginx-jenk
                 '''
 
             }
