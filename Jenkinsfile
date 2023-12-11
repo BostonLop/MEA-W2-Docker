@@ -25,8 +25,8 @@ pipeline {
             steps {
 
                 sh'''
-                docker build -t s90hef/flask-jenk .
-                docker build -t s90hef/nginx-jenk ./nginx
+                docker build -t s90hef/flask-jenk:latest -t s90hef/flask-jenk:v${BUILD_NUMBER} .
+                docker build -t s90hef/nginx-jenk:latest -t s90hef/nginx-jenk:v${BUILD_NUMBER} ./nginx
                 '''
 
             }
@@ -38,8 +38,10 @@ pipeline {
             steps {
 
                 sh'''
-                docker push s90hef/flask-jenk
-                docker push s90hef/nginx-jenk
+                docker push s90hef/flask-jenk:latest
+                docker push s90hef/flask-jenk:v${BUILD_NUMBER}
+                docker push s90hef/nginx-jenk:latest
+                docker push s90hef/nginx-jenk:v${BUILD_NUMBER}
                 '''
 
             }
